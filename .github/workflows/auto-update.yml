@@ -20,36 +20,57 @@ jobs:
         run: |
           REPO="666OS/ClashMac"
           CASK_FILE="Casks/clashmac.rb"
-          LATEST=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | head -50)
-          TAG=$(echo "$LATEST" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
+          
+          # Get latest release tag
+          TAG=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
+          
+          # Fallback to releases list if latest fails
           if [ -z "$TAG" ]; then
-            TAG=$(curl -s "https://api.github.com/repos/$REPO/releases" | grep '"tag_name' | head -1 | cut -d'"' -f4)
+            TAG=$(curl -s "https://api.github.com/repos/$REPO/releases" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
           fi
+          
+          # Get current version
           CURRENT_TAG=$(grep 'version "' "$CASK_FILE" | head -1 | cut -d'"' -f2)
-          echo "Latest: $TAG| Current: $CURRENT_TAG"
+          
+          echo "Latest: $TAG | Current: $CURRENT_TAG"
+          
           if [ "$TAG" != "$CURRENT_TAG" ] && [ -n "$TAG" ]; then
-            ASSETS=$(curl -s "https://api.github.com/repos/$REPO/releases/tags/$TAG" | grep -A5 'browser_download_url')
-            ARM_URL=$(echo "$ASSETS" | grep 'arm64.zip' | head -1 | cut -d'"' -f4)
-            X86_URL=$(echo "$ASSETS" | grep 'x86_64.zip' | head -1 | cut -d'"' -f4)
+            # Get download URLs
+            ASSETS=$(curl -s "https://api.github.com/repos/$REPO/releases/tags/$TAG")
+            ARM_URL=$(echo "$ASSETS" | grep -o '"browser_download_url": "[^"]*arm64\.zip"' | head -1 | cut -d'"' -f4)
+            X86_URL=$(echo "$ASSETS" | grep -o '"browser_download_url": "[^"]*x86_64\.zip"' | head -1 | cut -d'"' -f4)
+            
+            # Calculate SHA256
             ARM_SHA=$(curl -L "$ARM_URL" | sha256sum | cut -d' ' -f1)
             X86_SHA=$(curl -L "$X86_URL" | sha256sum | cut -d' ' -f1)
-            echo "ARM64: $ARM_SHA | X86_64: $86_SHA"
-            cat > "$CASK_FILE" <<EOF
+            
+            echo "ARM64 SHA: $ARM_SHA"
+            echo "X86_64 SHA: $X86_SHA"
+            
+            # Update cask file
+            cat > "$CASK_FILE" << 'CASKEOF'
 cask "clashmac" do
   arch arm: "arm64", intel: "x86_64"
-  version "$TAG"
-  url "https://github.com/$REPO/releases/download/#{version}/ClashMac-#{version}-macos-#{arch}.zip",
-      verified: "github.com/$REPO/"
+
+  version "VERSION_PLACEHOLDER"
+
+  url "https://github.com/666OS/ClashMac/releases/download/#{version}/ClashMac-#{version}-macos-#{arch}.zip",
+      verified: "github.com/666OS/ClashMac/"
+
   name "ClashMac"
   desc "Native Proxy Experience Built for macOS"
   homepage "https://clashmac.app/"
+
   livecheck do
     strategy :github_latest
     regex(/^(\d+\.\d+(?:-\w+(?:\.\d+)?)?)$/)
   end
+
   auto_updates true
   depends_on macos: ">= :monterey"
+
   app "ClashMac.app"
+
   zap trash: [
     "~/Library/Application Support/clashmac",
     "~/Library/Caches/com.clashmac.app",
@@ -58,13 +79,19 @@ cask "clashmac" do
     "~/Library/Saved Application State/com.clashmac.app.savedState",
   ]
 end
-EOF
+CASKEOF
+
+            # Replace placeholder with actual version
+            sed -i "s/VERSION_PLACEHOLDER/$TAG/" "$CASK_FILE"
+            
+            # Commit and push
             git config user.name "GitHub Actions"
             git config user.email "actions@github.com"
             git add "$CASK_FILE"
             git commit -m "Update clashmac to $TAG"
             git push
-            echo "来或变: $TAG"
+            
+            echo "Updated to $TAG"
           else
-            echo "　不丰剈的成"
+            echo "No update needed"
           fi
