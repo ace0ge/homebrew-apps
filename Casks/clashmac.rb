@@ -18,9 +18,6 @@ cask "clashmac" do
   auto_updates true
   depends_on macos: ">= :monterey"
 
-  # 修复：zip 包里有嵌套目录，需要用 container :nested
-  container :nested
-
   app "ClashMac-#{version}-macos-#{arch}/ClashMac.app"
 
   zap trash: [
