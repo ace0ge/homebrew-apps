@@ -14,6 +14,7 @@ brew tap ace0ge/homebrew-apps
 
 # Install casks
 brew install --cask clashmac
+brew install --cask sparkle
 ```
 
 ### Available Casks
@@ -21,6 +22,7 @@ brew install --cask clashmac
 | Cask | Description |
 |------|-------------|
 | [clashmac](Casks/clashmac.rb) | Native Proxy Experience Built for macOS |
+| [sparkle](Casks/sparkle.rb) | Another Mihomo GUI |
 
 ### Commands
 
@@ -66,6 +68,7 @@ brew tap ace0ge/homebrew-apps
 
 # 安装应用
 brew install --cask clashmac
+brew install --cask sparkle
 ```
 
 ### 可用 Casks
@@ -73,6 +76,7 @@ brew install --cask clashmac
 | Cask | 描述 |
 |------|------|
 | [clashmac](Casks/clashmac.rb) | 为 macOS 原生打造的代理体验 |
+| [sparkle](Casks/sparkle.rb) | 另一个 Mihomo GUI |
 
 ### 常用命令
 
