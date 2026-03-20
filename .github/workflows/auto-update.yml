@@ -29,60 +29,20 @@ jobs:
             TAG=$(curl -s "https://api.github.com/repos/$REPO/releases" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
           fi
           
-          # Get current version
+          # Get current version from cask file
           CURRENT_TAG=$(grep 'version "' "$CASK_FILE" | head -1 | cut -d'"' -f2)
           
           echo "Latest: $TAG | Current: $CURRENT_TAG"
           
           if [ "$TAG" != "$CURRENT_TAG" ] && [ -n "$TAG" ]; then
-            # Get download URLs
-            ASSETS=$(curl -s "https://api.github.com/repos/$REPO/releases/tags/$TAG")
-            ARM_URL=$(echo "$ASSETS" | grep -o '"browser_download_url": "[^"]*arm64\.zip"' | head -1 | cut -d'"' -f4)
-            X86_URL=$(echo "$ASSETS" | grep -o '"browser_download_url": "[^"]*x86_64\.zip"' | head -1 | cut -d'"' -f4)
+            echo "Updating from $CURRENT_TAG to $TAG..."
             
-            # Calculate SHA256
-            ARM_SHA=$(curl -L "$ARM_URL" | sha256sum | cut -d' ' -f1)
-            X86_SHA=$(curl -L "$X86_URL" | sha256sum | cut -d' ' -f1)
+            # Update version in cask file
+            sed -i "s/version \"$CURRENT_TAG\"/version \"$TAG\"/" "$CASK_FILE"
             
-            echo "ARM64 SHA: $ARM_SHA"
-            echo "X86_64 SHA: $X86_SHA"
-            
-            # Update cask file
-            cat > "$CASK_FILE" << 'CASKEOF'
-cask "clashmac" do
-  arch arm: "arm64", intel: "x86_64"
-
-  version "VERSION_PLACEHOLDER"
-
-  url "https://github.com/666OS/ClashMac/releases/download/#{version}/ClashMac-#{version}-macos-#{arch}.zip",
-      verified: "github.com/666OS/ClashMac/"
-
-  name "ClashMac"
-  desc "Native Proxy Experience Built for macOS"
-  homepage "https://clashmac.app/"
-
-  livecheck do
-    strategy :github_latest
-    regex(/^(\d+\.\d+(?:-\w+(?:\.\d+)?)?)$/)
-  end
-
-  auto_updates true
-  depends_on macos: ">= :monterey"
-
-  app "ClashMac.app"
-
-  zap trash: [
-    "~/Library/Application Support/clashmac",
-    "~/Library/Caches/com.clashmac.app",
-    "~/Library/HTTPStorages/com.clashmac.app",
-    "~/Library/Preferences/com.clashmac.app.plist",
-    "~/Library/Saved Application State/com.clashmac.app.savedState",
-  ]
-end
-CASKEOF
-
-            # Replace placeholder with actual version
-            sed -i "s/VERSION_PLACEHOLDER/$TAG/" "$CASK_FILE"
+            # Update app path with new version
+            sed -i "s/ClashMac-\$CURRENT_TAG-macos/ClashMac-\$TAG-macos/g" "$CASK_FILE"
+            sed -i "s/ClashMac-${CURRENT_TAG}-macos/ClashMac-${TAG}-macos/g" "$CASK_FILE"
             
             # Commit and push
             git config user.name "GitHub Actions"
