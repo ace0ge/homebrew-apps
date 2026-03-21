@@ -16,42 +16,73 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Update clashmac.rb
+      - name: Update all casks
         run: |
-          REPO="666OS/ClashMac"
-          CASK_FILE="Casks/clashmac.rb"
+          # Casks configuration: cask_name -> github_repo
+          declare -A CASKS=(
+            ["clashmac"]="666OS/ClashMac"
+            ["sparkle"]="xishang0128/sparkle"
+          )
           
-          # Get latest release tag
-          TAG=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
-          
-          # Fallback to releases list if latest fails
-          if [ -z "$TAG" ]; then
-            TAG=$(curl -s "https://api.github.com/repos/$REPO/releases" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
-          fi
-          
-          # Get current version from cask file
-          CURRENT_TAG=$(grep 'version "' "$CASK_FILE" | head -1 | cut -d'"' -f2)
-          
-          echo "Latest: $TAG | Current: $CURRENT_TAG"
-          
-          if [ "$TAG" != "$CURRENT_TAG" ] && [ -n "$TAG" ]; then
-            echo "Updating from $CURRENT_TAG to $TAG..."
+          for cask_name in "${!CASKS[@]}"; do
+            REPO="${CASKS[$cask_name]}"
+            CASK_FILE="Casks/${cask_name}.rb"
             
-            # Update version in cask file
-            sed -i "s/version \"$CURRENT_TAG\"/version \"$TAG\"/" "$CASK_FILE"
+            echo "=== Processing: $cask_name ($REPO) ==="
             
-            # Update app path with new version
-            sed -i "s/ClashMac-\$CURRENT_TAG-macos/ClashMac-\$TAG-macos/g" "$CASK_FILE"
-            sed -i "s/ClashMac-${CURRENT_TAG}-macos/ClashMac-${TAG}-macos/g" "$CASK_FILE"
+            # Get latest release tag
+            TAG=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
             
-            # Commit and push
-            git config user.name "GitHub Actions"
-            git config user.email "actions@github.com"
-            git add "$CASK_FILE"
-            git commit -m "Update clashmac to $TAG"
-            git push
+            # Fallback to releases list if latest fails
+            if [ -z "$TAG" ]; then
+              TAG=$(curl -s "https://api.github.com/repos/$REPO/releases" | grep '"tag_name"' | head -1 | cut -d'"' -f4)
+            fi
             
-            echo "Updated to $TAG"
+            if [ -z "$TAG" ]; then
+              echo "Error: Could not get version for $cask_name"
+              continue
+            fi
+            
+            # Get current version from cask file
+            CURRENT_TAG=$(grep 'version "' "$CASK_FILE" | head -1 | cut -d'"' -f2)
+            
+            echo "Latest: $TAG | Current: $CURRENT_TAG"
+            
+            if [ "$TAG" != "$CURRENT_TAG" ] && [ -n "$TAG" ]; then
+              echo "Updating $cask_name from $CURRENT_TAG to $TAG..."
+              
+              # Update version in cask file
+              sed -i "s/version \"$CURRENT_TAG\"/version \"$TAG\"/" "$CASK_FILE"
+              
+              # Also update version in app path if present
+              sed -i "s/$CURRENT_TAG/$TAG/g" "$CASK_FILE"
+              
+              # Git add and commit
+              git config user.name "GitHub Actions"
+              git config user.email "actions@github.com"
+              git add "$CASK_FILE"
+              git commit -m "Update $cask_name to $TAG"
+              
+              echo "Updated $cask_name to $TAG"
+            else
+              echo "No update needed for $cask_name"
+            fi
+          done
+          
+          # Push if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes to push"
           else
-            echo "No update needed"
+            git push
+            echo "Changes pushed successfully"
           fi
+
+      - name: Update README with current casks
+        run: |
+          # Generate cask list for README
+          echo "=== Updating README ==="
+          
+          # Get all cask files
+          CASKS=$(ls Casks/*.rb 2>/dev/null | xargs -n1 basename | sed 's/.rb$//' | sort)
+          
+          echo "Found casks: $CASKS"
