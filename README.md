@@ -1,159 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Homebrew Casks</title>
-  <style>
-    :root { --bg: #ffffff; --text: #24292f; --code: #f6f8fa; --border: #d0d7de; --link: #0969da; }
-    @media (prefers-color-scheme: dark) {
-      :root { --bg: #0d1117; --text: #c9d1d9; --code: #161b22; --border: #30363d; --link: #58a6ff; }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-    h1 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; }
-    h2 { margin: 30px 0 15px; }
-    a { color: var(--link); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    code { background: var(--code); padding: 0.2em 0.4em; border-radius: 3px; font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace; font-size: 0.9em; }
-    pre { background: var(--code); padding: 16px; border-radius: 6px; overflow-x: auto; margin: 15px 0; }
-    pre code { background: none; padding: 0; }
-    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
-    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
-    th { background: var(--code); }
-    .lang-switch { position: fixed; top: 20px; right: 20px; background: var(--code); border: 1px solid var(--border); border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 14px; color: var(--text); }
-    .section { display: none; }
-    .section.active { display: block; }
-    ol, ul { margin: 10px 0 10px 20px; }
-    li { margin: 5px 0; }
-  </style>
-</head>
-<body>
-  <button class="lang-switch" onclick="toggleLang()">EN / 中文</button>
+# Homebrew Casks
 
-  <!-- English -->
-  <div id="en" class="section active">
-    <h1>🍺 Homebrew Casks</h1>
-    <p>Unofficial Homebrew Cask Tap for macOS Apps.</p>
+[English](#english) | [中文](#中文)
 
-    <h2>Quick Start</h2>
-    <pre><code># Add this tap
+---
+
+## English
+
+### Quick Start
+
+```bash
+# Add this tap
 brew tap ace0ge/homebrew-apps
 
 # Install casks
 brew install --cask clashmac
-brew install --cask sparkle</code></pre>
+brew install --cask sparkle
+```
 
-    <h2>Available Casks</h2>
-    <table>
-      <tr><th>Cask</th><th>Description</th></tr>
-      <tr><td><a href="Casks/clashmac.rb">clashmac</a></td><td>Native Proxy Experience Built for macOS</td></tr>
-      <tr><td><a href="Casks/sparkle.rb">sparkle</a></td><td>Another Mihomo GUI</td></tr>
-    </table>
+### Available Casks
 
-    <h2>Commands</h2>
-    <pre><code># Install a cask
-brew install --cask &lt;cask-name&gt;
+| Cask | Description |
+|------|-------------|
+| [clashmac](Casks/clashmac.rb) | Native Proxy Experience Built for macOS |
+| [sparkle](Casks/sparkle.rb) | Another Mihomo GUI |
+
+### Commands
+
+```bash
+# Install a cask
+brew install --cask <cask-name>
 
 # Upgrade a cask
-brew upgrade --cask &lt;cask-name&gt;
+brew upgrade --cask <cask-name>
 
 # Uninstall a cask
-brew uninstall --cask &lt;cask-name&gt;
+brew uninstall --cask <cask-name>
 
 # List installed casks from this tap
-brew list --cask</code></pre>
+brew list --cask
+```
 
-    <h2>Auto Update</h2>
-    <p>This tap uses GitHub Actions to automatically check for updates:</p>
-    <ul>
-      <li>Checks every 6 hours</li>
-      <li>Can be triggered manually from Actions tab</li>
-    </ul>
+### Auto Update
 
-    <h2>Development</h2>
-    <p>To submit a new cask:</p>
-    <ol>
-      <li>Add the <code>.rb</code> file to <code>Casks/</code></li>
-      <li>Submit a Pull Request</li>
-    </ol>
+This tap uses GitHub Actions to automatically check for updates:
+- Checks every 6 hours
+- Can be triggered manually from Actions tab
 
-    <h2>License</h2>
-    <p>MIT</p>
-  </div>
+### Development
 
-  <!-- Chinese -->
-  <div id="zh" class="section">
-    <h1>🍺 Homebrew Casks</h1>
-    <p>非官方 Homebrew Cask 源，用于 macOS 应用。</p>
+To submit a new cask:
+1. Add the `.rb` file to `Casks/`
+2. Submit a Pull Request
 
-    <h2>快速开始</h2>
-    <pre><code># 添加此 tap
+### License
+
+MIT
+
+---
+
+## 中文
+
+### 快速开始
+
+```bash
+# 添加此 tap
 brew tap ace0ge/homebrew-apps
 
 # 安装应用
 brew install --cask clashmac
-brew install --cask sparkle</code></pre>
+brew install --cask sparkle
+```
 
-    <h2>可用 Casks</h2>
-    <table>
-      <tr><th>Cask</th><th>描述</th></tr>
-      <tr><td><a href="Casks/clashmac.rb">clashmac</a></td><td>为 macOS 原生打造的代理体验</td></tr>
-      <tr><td><a href="Casks/sparkle.rb">sparkle</a></td><td>另一个 Mihomo GUI</td></tr>
-    </table>
+### 可用 Casks
 
-    <h2>常用命令</h2>
-    <pre><code># 安装 cask
-brew install --cask &lt;cask-name&gt;
+| Cask | 描述 |
+|------|------|
+| [clashmac](Casks/clashmac.rb) | 为 macOS 原生打造的代理体验 |
+| [sparkle](Casks/sparkle.rb) | 另一个 Mihomo GUI |
+
+### 常用命令
+
+```bash
+# 安装 cask
+brew install --cask <cask-name>
 
 # 升级 cask
-brew upgrade --cask &lt;cask-name&gt;
+brew upgrade --cask <cask-name>
 
 # 卸载 cask
-brew uninstall --cask &lt;cask-name&gt;
+brew uninstall --cask <cask-name>
 
 # 列出此 tap 已安装的 casks
-brew list --cask</code></pre>
+brew list --cask
+```
 
-    <h2>自动更新</h2>
-    <p>此源使用 GitHub Actions 自动检查更新：</p>
-    <ul>
-      <li>每 6 小时检查一次</li>
-      <li>可从 Actions 页面手动触发</li>
-    </ul>
+### 自动更新
 
-    <h2>开发</h2>
-    <p>提交新的 cask：</p>
-    <ol>
-      <li>将 <code>.rb</code> 文件添加到 <code>Casks/</code> 目录</li>
-      <li>提交 Pull Request</li>
-    </ol>
+此源使用 GitHub Actions 自动检查更新：
+- 每 6 小时检查一次
+- 可从 Actions 页面手动触发
 
-    <h2>许可证</h2>
-    <p>MIT</p>
-  </div>
+### 开发
 
-  <script>
-    const userLang = navigator.language || navigator.userLanguage;
-    const isZh = userLang.startsWith('zh');
-    
-    const savedLang = localStorage.getItem('readme-lang');
-    if (savedLang) {
-      document.getElementById('en').classList.toggle('active', savedLang === 'en');
-      document.getElementById('zh').classList.toggle('active', savedLang === 'zh');
-    } else if (isZh) {
-      document.getElementById('en').classList.remove('active');
-      document.getElementById('zh').classList.add('active');
-    }
-    
-    function toggleLang() {
-      const en = document.getElementById('en');
-      const zh = document.getElementById('zh');
-      const isEn = en.classList.contains('active');
-      en.classList.toggle('active');
-      zh.classList.toggle('active');
-      localStorage.setItem('readme-lang', isEn ? 'zh' : 'en');
-    }
-  </script>
-</body>
-</html>
+提交新的 cask：
+1. 将 `.rb` 文件添加到 `Casks/` 目录
+2. 提交 Pull Request
+
+### 许可证
+
+MIT
