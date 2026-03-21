@@ -33,16 +33,16 @@
 
   <!-- English -->
   <div id="en" class="section active">
-    <h1>🍺 Homebrew Casks</h1>
+    <h1>Homebrew Casks</h1>
     <p>Unofficial Homebrew Cask Tap for macOS Apps.</p>
 
     <h2>Quick Start</h2>
     <pre><code># Add this tap
 brew tap ace0ge/homebrew-apps
 
-# Install casks
-brew install --cask clashmac
-brew install --cask sparkle</code></pre>
+# Install casks (use full path to avoid conflicts)
+brew install --cask ace0ge/homebrew-apps/clashmac
+brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
 
     <h2>Available Casks</h2>
     <table>
@@ -52,14 +52,14 @@ brew install --cask sparkle</code></pre>
     </table>
 
     <h2>Commands</h2>
-    <pre><code># Install a cask
-brew install --cask &lt;cask-name&gt;
+    <pre><code># Install a cask (recommended: use full tap path)
+brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # Upgrade a cask
-brew upgrade --cask &lt;cask-name&gt;
+brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # Uninstall a cask
-brew uninstall --cask &lt;cask-name&gt;
+brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # List installed casks from this tap
 brew list --cask</code></pre>
@@ -84,16 +84,16 @@ brew list --cask</code></pre>
 
   <!-- Chinese -->
   <div id="zh" class="section">
-    <h1>🍺 Homebrew Casks</h1>
+    <h1>Homebrew Casks</h1>
     <p>非官方 Homebrew Cask 源，用于 macOS 应用。</p>
 
     <h2>快速开始</h2>
     <pre><code># 添加此 tap
 brew tap ace0ge/homebrew-apps
 
-# 安装应用
-brew install --cask clashmac
-brew install --cask sparkle</code></pre>
+# 安装应用（建议使用完整路径避免重名冲突）
+brew install --cask ace0ge/homebrew-apps/clashmac
+brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
 
     <h2>可用 Casks</h2>
     <table>
@@ -103,14 +103,14 @@ brew install --cask sparkle</code></pre>
     </table>
 
     <h2>常用命令</h2>
-    <pre><code># 安装 cask
-brew install --cask &lt;cask-name&gt;
+    <pre><code># 安装 cask（推荐使用完整路径）
+brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # 升级 cask
-brew upgrade --cask &lt;cask-name&gt;
+brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # 卸载 cask
-brew uninstall --cask &lt;cask-name&gt;
+brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
 # 列出此 tap 已安装的 casks
 brew list --cask</code></pre>
