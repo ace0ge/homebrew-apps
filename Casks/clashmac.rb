@@ -10,4 +10,9 @@ cask "clashmac" do
   homepage "https://clashmac.app/"
 
   app "ClashMac-#{version}-macos-#{arch}/ClashMac.app"
+
+  # 安装后自动移除隔离属性
+  postflight do
+    system "xattr", "-cr", "#{appdir}/ClashMac.app"
+  end
 end
