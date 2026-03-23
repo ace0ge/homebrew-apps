@@ -40,14 +40,12 @@
 brew tap ace0ge/homebrew-apps
 
 # Install casks
-# Option 1: Use sudo -i (recommended)
-sudo -i
 brew install --cask ace0ge/homebrew-apps/clashmac
 brew install --cask ace0ge/homebrew-apps/sparkle
-exit
 
-# Option 2: Normal install
-brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
+# After first install, run ONCE to remove quarantine (no more warnings!)
+sudo xattr -cr "/Applications/ClashMac.app"
+sudo xattr -cr "/Applications/Sparkle.app"</code></pre>
 
     <h2>Available Casks</h2>
     <table>
@@ -57,20 +55,17 @@ brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
     </table>
 
     <h2>Commands</h2>
-    <pre><code># Install (use sudo -i first, then brew without sudo)
-sudo -i
+    <pre><code># Install
 brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
 
-# Upgrade
-sudo -i
+# After install, run ONCE to avoid authorization prompts:
+sudo xattr -cr "/Applications/&lt;AppName&gt;.app"
+
+# Upgrade (then run xattr again)
 brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
 
 # Uninstall
-sudo -i
 brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
 
 # List installed
 brew list --cask</code></pre>
@@ -91,14 +86,12 @@ brew list --cask</code></pre>
 brew tap ace0ge/homebrew-apps
 
 # 安装应用
-# 方式1：使用 sudo -i（推荐）
-sudo -i
 brew install --cask ace0ge/homebrew-apps/clashmac
 brew install --cask ace0ge/homebrew-apps/sparkle
-exit
 
-# 方式2：普通安装
-brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
+# 首次安装后运行一次（后续不再弹窗！）
+sudo xattr -cr "/Applications/ClashMac.app"
+sudo xattr -cr "/Applications/Sparkle.app"</code></pre>
 
     <h2>可用 Casks</h2>
     <table>
@@ -108,20 +101,17 @@ brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
     </table>
 
     <h2>常用命令</h2>
-    <pre><code># 安装（先用 sudo -i 切换到 root）
-sudo -i
+    <pre><code># 安装
 brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
 
-# 升级
-sudo -i
-brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
+# 安装后运行一次（避免授权弹窗）：
+sudo xattr -cr "/Applications/&lt;应用名&gt;.app"
+
+# 升级后也运行一次
+sudo xattr -cr "/Applications/&lt;应用名&gt;.app"
 
 # 卸载
-sudo -i
 brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
-exit
 
 # 列出已安装
 brew list --cask</code></pre>
