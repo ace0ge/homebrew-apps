@@ -39,9 +39,15 @@
     <pre><code># Add this tap
 brew tap ace0ge/homebrew-apps
 
-# Install casks (use sudo to avoid repeated authorization)
-sudo brew install --cask ace0ge/homebrew-apps/clashmac
-sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
+# Install casks
+# Option 1: Use sudo -i (recommended)
+sudo -i
+brew install --cask ace0ge/homebrew-apps/clashmac
+brew install --cask ace0ge/homebrew-apps/sparkle
+exit
+
+# Option 2: Normal install
+brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
 
     <h2>Available Casks</h2>
     <table>
@@ -51,14 +57,20 @@ sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
     </table>
 
     <h2>Commands</h2>
-    <pre><code># Install (use sudo and full tap path)
-sudo brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+    <pre><code># Install (use sudo -i first, then brew without sudo)
+sudo -i
+brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # Upgrade
-sudo brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+sudo -i
+brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # Uninstall
-sudo brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+sudo -i
+brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # List installed
 brew list --cask</code></pre>
@@ -78,9 +90,15 @@ brew list --cask</code></pre>
     <pre><code># 添加此 tap
 brew tap ace0ge/homebrew-apps
 
-# 安装应用（使用 sudo 避免后续重复授权）
-sudo brew install --cask ace0ge/homebrew-apps/clashmac
-sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
+# 安装应用
+# 方式1：使用 sudo -i（推荐）
+sudo -i
+brew install --cask ace0ge/homebrew-apps/clashmac
+brew install --cask ace0ge/homebrew-apps/sparkle
+exit
+
+# 方式2：普通安装
+brew install --cask ace0ge/homebrew-apps/clashmac</code></pre>
 
     <h2>可用 Casks</h2>
     <table>
@@ -90,14 +108,20 @@ sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
     </table>
 
     <h2>常用命令</h2>
-    <pre><code># 安装（使用 sudo 和完整路径）
-sudo brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+    <pre><code># 安装（先用 sudo -i 切换到 root）
+sudo -i
+brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # 升级
-sudo brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+sudo -i
+brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # 卸载
-sudo brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+sudo -i
+brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+exit
 
 # 列出已安装
 brew list --cask</code></pre>
