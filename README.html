@@ -31,7 +31,6 @@
 <body>
   <button class="lang-switch" onclick="toggleLang()">EN / 中文</button>
 
-  <!-- English -->
   <div id="en" class="section active">
     <h1>Homebrew Casks</h1>
     <p>Unofficial Homebrew Cask Tap for macOS Apps.</p>
@@ -40,9 +39,9 @@
     <pre><code># Add this tap
 brew tap ace0ge/homebrew-apps
 
-# Install casks (use full path to avoid conflicts)
-brew install --cask ace0ge/homebrew-apps/clashmac
-brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
+# Install casks (use sudo to avoid repeated authorization)
+sudo brew install --cask ace0ge/homebrew-apps/clashmac
+sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
 
     <h2>Available Casks</h2>
     <table>
@@ -52,37 +51,25 @@ brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
     </table>
 
     <h2>Commands</h2>
-    <pre><code># Install a cask (recommended: use full tap path)
-brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+    <pre><code># Install (use sudo and full tap path)
+sudo brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# Upgrade a cask
-brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+# Upgrade
+sudo brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# Uninstall a cask
-brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+# Uninstall
+sudo brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# List installed casks from this tap
+# List installed
 brew list --cask</code></pre>
 
     <h2>Auto Update</h2>
-    <p>This tap uses GitHub Actions to automatically check for updates:</p>
-    <ul>
-      <li>Checks every 6 hours</li>
-      <li>Can be triggered manually from Actions tab</li>
-    </ul>
-
-    <h2>Development</h2>
-    <p>To submit a new cask:</p>
-    <ol>
-      <li>Add the <code>.rb</code> file to <code>Casks/</code></li>
-      <li>Submit a Pull Request</li>
-    </ol>
+    <p>Checks every 6 hours. Can trigger manually from Actions tab.</p>
 
     <h2>License</h2>
     <p>MIT</p>
   </div>
 
-  <!-- Chinese -->
   <div id="zh" class="section">
     <h1>Homebrew Casks</h1>
     <p>非官方 Homebrew Cask 源，用于 macOS 应用。</p>
@@ -91,9 +78,9 @@ brew list --cask</code></pre>
     <pre><code># 添加此 tap
 brew tap ace0ge/homebrew-apps
 
-# 安装应用（建议使用完整路径避免重名冲突）
-brew install --cask ace0ge/homebrew-apps/clashmac
-brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
+# 安装应用（使用 sudo 避免后续重复授权）
+sudo brew install --cask ace0ge/homebrew-apps/clashmac
+sudo brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
 
     <h2>可用 Casks</h2>
     <table>
@@ -103,55 +90,39 @@ brew install --cask ace0ge/homebrew-apps/sparkle</code></pre>
     </table>
 
     <h2>常用命令</h2>
-    <pre><code># 安装 cask（推荐使用完整路径）
-brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+    <pre><code># 安装（使用 sudo 和完整路径）
+sudo brew install --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# 升级 cask
-brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+# 升级
+sudo brew upgrade --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# 卸载 cask
-brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
+# 卸载
+sudo brew uninstall --cask ace0ge/homebrew-apps/&lt;cask-name&gt;
 
-# 列出此 tap 已安装的 casks
+# 列出已安装
 brew list --cask</code></pre>
 
     <h2>自动更新</h2>
-    <p>此源使用 GitHub Actions 自动检查更新：</p>
-    <ul>
-      <li>每 6 小时检查一次</li>
-      <li>可从 Actions 页面手动触发</li>
-    </ul>
-
-    <h2>开发</h2>
-    <p>提交新的 cask：</p>
-    <ol>
-      <li>将 <code>.rb</code> 文件添加到 <code>Casks/</code> 目录</li>
-      <li>提交 Pull Request</li>
-    </ol>
+    <p>每 6 小时检查一次，可从 Actions 页面手动触发。</p>
 
     <h2>许可证</h2>
     <p>MIT</p>
   </div>
 
   <script>
-    const userLang = navigator.language || navigator.userLanguage;
-    const isZh = userLang.startsWith('zh');
-    
-    const savedLang = localStorage.getItem('readme-lang');
-    if (savedLang) {
-      document.getElementById('en').classList.toggle('active', savedLang === 'en');
-      document.getElementById('zh').classList.toggle('active', savedLang === 'zh');
+    const isZh = navigator.language.startsWith('zh');
+    const saved = localStorage.getItem('readme-lang');
+    if (saved) {
+      document.getElementById('en').classList.toggle('active', saved === 'en');
+      document.getElementById('zh').classList.toggle('active', saved === 'zh');
     } else if (isZh) {
       document.getElementById('en').classList.remove('active');
       document.getElementById('zh').classList.add('active');
     }
-    
     function toggleLang() {
-      const en = document.getElementById('en');
-      const zh = document.getElementById('zh');
+      const en = document.getElementById('en'), zh = document.getElementById('zh');
       const isEn = en.classList.contains('active');
-      en.classList.toggle('active');
-      zh.classList.toggle('active');
+      en.classList.toggle('active'); zh.classList.toggle('active');
       localStorage.setItem('readme-lang', isEn ? 'zh' : 'en');
     }
   </script>
