@@ -13,14 +13,12 @@
 brew tap ace0ge/homebrew-apps
 
 # Install casks
-# Option 1: Use sudo -i to get root shell first (recommended)
-sudo -i
 brew install --cask ace0ge/homebrew-apps/clashmac
 brew install --cask ace0ge/homebrew-apps/sparkle
-exit
 
-# Option 2: Normal install (may need to authorize)
-brew install --cask ace0ge/homebrew-apps/clashmac
+# After first install, run this ONCE to remove quarantine (no more warnings!)
+sudo xattr -cr "/Applications/ClashMac.app"
+sudo xattr -cr "/Applications/Sparkle.app"
 ```
 
 ### Available Casks
@@ -33,20 +31,20 @@ brew install --cask ace0ge/homebrew-apps/clashmac
 ### Commands
 
 ```bash
-# Install (use sudo -i first for root shell, then brew without sudo)
-sudo -i
+# Install
 brew install --cask ace0ge/homebrew-apps/<cask-name>
-exit
+
+# After install, run this ONCE to avoid authorization prompts:
+sudo xattr -cr "/Applications/<AppName>.app"
 
 # Upgrade
-sudo -i
 brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
-exit
+
+# After upgrade, also run xattr once:
+sudo xattr -cr "/Applications/<AppName>.app"
 
 # Uninstall
-sudo -i
 brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
-exit
 
 # List installed
 brew list --cask
@@ -57,12 +55,6 @@ brew list --cask
 This tap uses GitHub Actions to automatically check for updates:
 - Checks every 6 hours
 - Can be triggered manually from Actions tab
-
-### Development
-
-To submit a new cask:
-1. Add the `.rb` file to `Casks/`
-2. Submit a Pull Request
 
 ### License
 
@@ -79,14 +71,12 @@ MIT
 brew tap ace0ge/homebrew-apps
 
 # 安装应用
-# 方式1：先用 sudo -i 获取 root 用户（推荐）
-sudo -i
 brew install --cask ace0ge/homebrew-apps/clashmac
 brew install --cask ace0ge/homebrew-apps/sparkle
-exit
 
-# 方式2：普通安装（可能需要授权）
-brew install --cask ace0ge/homebrew-apps/clashmac
+# 首次安装后运行一次此命令（后续不再需要授权！）
+sudo xattr -cr "/Applications/ClashMac.app"
+sudo xattr -cr "/Applications/Sparkle.app"
 ```
 
 ### 可用 Casks
@@ -99,22 +89,19 @@ brew install --cask ace0ge/homebrew-apps/clashmac
 ### 常用命令
 
 ```bash
-# 安装（先用 sudo -i 切换到 root 用户，再运行 brew）
-sudo -i
+# 安装
 brew install --cask ace0ge/homebrew-apps/<cask-name>
-exit
 
-# 升级
-sudo -i
-brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
-exit
+# 安装后运行一次（避免授权弹窗）：
+sudo xattr -cr "/Applications/<应用名>.app"
+
+# 升级后也运行一次：
+sudo xattr -cr "/Applications/<应用名>.app"
 
 # 卸载
-sudo -i
 brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
-exit
 
-# 列出此 tap 已安装的 casks
+# 列出已安装
 brew list --cask
 ```
 
@@ -123,12 +110,6 @@ brew list --cask
 此源使用 GitHub Actions 自动检查更新：
 - 每 6 小时检查一次
 - 可从 Actions 页面手动触发
-
-### 开发
-
-提交新的 cask：
-1. 将 `.rb` 文件添加到 `Casks/` 目录
-2. 提交 Pull Request
 
 ### 许可证
 
