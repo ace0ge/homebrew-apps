@@ -10,16 +10,4 @@ cask "clashmac" do
   homepage "https://clashmac.app/"
 
   app "ClashMac-#{version}-macos-#{arch}/ClashMac.app"
-
-  # 配置需要 sudo 权限
-  sudo true
-
-  # 安装后自动移除隔离属性，避免恶意软件警告
-  postflight do
-    system "xattr", "-cr", "--", "#{appdir}/ClashMac.app"
-  end
-
-  uninstall_preflight do
-    system "xattr", "-cr", "--", "#{appdir}/ClashMac.app"
-  end
 end
