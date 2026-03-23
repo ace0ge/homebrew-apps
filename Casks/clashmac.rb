@@ -9,19 +9,17 @@ cask "clashmac" do
   desc "Native Proxy Experience Built for macOS"
   homepage "https://clashmac.app/"
 
-  # 使用 sudo 安装到系统目录
-  install:quit => "com.clashmac.app"
-
   app "ClashMac-#{version}-macos-#{arch}/ClashMac.app"
 
-  # 安装后移除隔离属性（需要 sudo）
+  # 配置需要 sudo 权限
+  sudo true
+
+  # 安装后自动移除隔离属性，避免恶意软件警告
   postflight do
-    system "sudo", "xattr", "-cr", "--", "#{staged_path}/ClashMac-#{version}-macos-#{arch}/ClashMac.app"
-    system "sudo", "xattr", "-cr", "--", "/Applications/ClashMac.app"
+    system "xattr", "-cr", "--", "#{appdir}/ClashMac.app"
   end
 
-  # 卸载前清理
   uninstall_preflight do
-    system "sudo", "xattr", "-cr", "--", "/Applications/ClashMac.app"
+    system "xattr", "-cr", "--", "#{appdir}/ClashMac.app"
   end
 end
