@@ -12,9 +12,9 @@
 # Add this tap
 brew tap ace0ge/homebrew-apps
 
-# Install casks (use full path to avoid conflicts)
-brew install --cask ace0ge/homebrew-apps/clashmac
-brew install --cask ace0ge/homebrew-apps/sparkle
+# Install casks (use sudo to avoid repeated authorization)
+sudo brew install --cask ace0ge/homebrew-apps/clashmac
+sudo brew install --cask ace0ge/homebrew-apps/sparkle
 ```
 
 ### Available Casks
@@ -27,14 +27,14 @@ brew install --cask ace0ge/homebrew-apps/sparkle
 ### Commands
 
 ```bash
-# Install a cask (recommended: use full tap path)
-brew install --cask ace0ge/homebrew-apps/<cask-name>
+# Install a cask (recommended: use sudo and full tap path)
+sudo brew install --cask ace0ge/homebrew-apps/<cask-name>
 
 # Upgrade a cask
-brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
+sudo brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
 
 # Uninstall a cask
-brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
+sudo brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
 
 # List installed casks from this tap
 brew list --cask
@@ -66,9 +66,9 @@ MIT
 # 添加此 tap
 brew tap ace0ge/homebrew-apps
 
-# 安装应用（建议使用完整路径避免重名冲突）
-brew install --cask ace0ge/homebrew-apps/clashmac
-brew install --cask ace0ge/homebrew-apps/sparkle
+# 安装应用（使用 sudo 避免后续重复授权）
+sudo brew install --cask ace0ge/homebrew-apps/clashmac
+sudo brew install --cask ace0ge/homebrew-apps/sparkle
 ```
 
 ### 可用 Casks
@@ -81,14 +81,14 @@ brew install --cask ace0ge/homebrew-apps/sparkle
 ### 常用命令
 
 ```bash
-# 安装 cask（推荐使用完整路径）
-brew install --cask ace0ge/homebrew-apps/<cask-name>
+# 安装 cask（推荐使用 sudo 和完整路径）
+sudo brew install --cask ace0ge/homebrew-apps/<cask-name>
 
 # 升级 cask
-brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
+sudo brew upgrade --cask ace0ge/homebrew-apps/<cask-name>
 
 # 卸载 cask
-brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
+sudo brew uninstall --cask ace0ge/homebrew-apps/<cask-name>
 
 # 列出此 tap 已安装的 casks
 brew list --cask
