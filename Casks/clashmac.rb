@@ -15,4 +15,11 @@ cask "clashmac" do
   postflight do
     system "xattr", "-cr", "#{appdir}/ClashMac.app"
   end
+
+  # 卸载时清理残留文件
+  zap trash: [
+    "~/Library/Application Support/clashmac",
+    "~/Library/HTTPStorages/app.clashmac",
+    "~/Library/Caches/app.clashmac"
+  ]
 end
